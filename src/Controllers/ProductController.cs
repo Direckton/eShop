@@ -6,8 +6,8 @@ namespace Shop.Controllers
     {
         public IActionResult Index()
         {
+            ViewData["Message"] = "Hello from controller";
             return View();
-        
         }
     }
 }
