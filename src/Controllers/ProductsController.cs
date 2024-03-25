@@ -22,6 +22,7 @@ namespace Shop.Controllers
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            var productModel = new Product();
             return View(await _context.Products.ToListAsync());
         }
 

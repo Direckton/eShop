@@ -2,7 +2,13 @@
 @{
 }
 
-
-
 <h1>Product Page</h1>
-<p>@ViewData["Message"]</p>
+
+<product>
+    <ul>
+        <li>Id: @Model.Id</li>
+        <li>Name: @Model.Name</li>
+        <li>Description: @Model.Description</li>
+        <li>Price: @Model.Price</li>
+    </ul>
+</product>
