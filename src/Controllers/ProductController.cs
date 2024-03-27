@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Shop.Data;
 using Shop.Models.Products;
 
@@ -14,14 +15,6 @@ namespace Shop.Controllers
         }
         public async Task<IActionResult> Index(int? id)
         {
-            //var product = new Product()
-            //{
-            //    Id = 1,
-            //    Name = "Test",
-            //    Description = "Test of the description",
-            //    Price = 1.2m
-            //};
-
             if (id == null)
             {
                 return NotFound();
@@ -35,6 +28,58 @@ namespace Shop.Controllers
                 return BadRequest();
             }
             ViewData["Message"] = "Hello from controller";
+            return View(product);
+        }
+        //First you have to fetch the data to edit
+        [HttpGet]
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var product = await _context.Products.FindAsync(id);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            return View(product);
+        }
+
+        //Then you can save it here
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Price")] Product product)
+        {
+            if(id != product.Id)
+            {
+                return BadRequest();
+            }
+
+            if(ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(product);
+                    await _context.SaveChangesAsync();
+                }
+                catch(DbUpdateConcurrencyException)
+                {
+                    if(_context.Products.Any(e => e.Id == product.Id))
+                    {
+                        return BadRequest();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
+                }
+                return RedirectToAction("Index",new {id = product.Id});
+            }
+
             return View(product);
         }
     }
