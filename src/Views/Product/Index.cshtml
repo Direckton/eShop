@@ -10,8 +10,12 @@
         <li>Name: @Model.Name</li>
         <li>Description: @Model.Description</li>
         <li>Price: @Model.Price</li>
+        <li>InvId: @Model.InventoryId</li>
+        <li>CatId: @Model.CategoryId</li>
     </ul>
 </product>
-<a asp-action="Edit" asp-route-id="@Model.Id">
-    <button class="btn btn-primary">Edit product</button>
-</a>
+
+<form asp-action="Edit" asp-route-id="@Model.Id" method="get">
+    <button type="submit" class="btn btn-primary">Edit</button>
+</form>
+

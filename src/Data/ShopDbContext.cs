@@ -10,5 +10,6 @@ namespace Shop.Data
         {
             
         }
+        public DbSet<Shop.Models.Products.Inventory> Inventory { get; set; } = default!;
     }
 }

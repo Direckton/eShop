@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Shop.Models.Products.ProductPlusInventory>
+
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h1>Inventory</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.inventory.quantity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.product.Price)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @Html.DisplayFor(modelItem => item.inventory.quantity)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.product.Name)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.product.Description)
+            </td>
+            <td>
+                    @Html.DisplayFor(modelItem => item.product.Price)
+            </td>
+            <td>
+                    <a asp-action="Edit" asp-route-id="@item.inventory.Id">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.inventory.Id">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.inventory.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

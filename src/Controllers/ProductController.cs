@@ -82,5 +82,6 @@ namespace Shop.Controllers
 
             return View(product);
         }
+
     }
 }
